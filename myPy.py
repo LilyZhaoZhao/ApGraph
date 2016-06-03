@@ -69,14 +69,14 @@ if __name__=="__main__":
             if !(loc in poiDict.keys()):
     '''
 
-    fr = open(cmdArgv[1],'r')
-    fw = open(cmdArgv[2],'w')
+    fr = open(cmdArgv[1],'r') #loc1
+    fw = open(cmdArgv[2],'w') #finalData1
 
     s1 = "../data/201503";
     s2 = "/safe_wifi_connect_sample_export";
-    file = cmdArgv[3] #poiloc
-    s3 = cmdArgv[4] #nodes
-    s4 = cmdArgv[5] #edges
+    file = cmdArgv[3] #poiloc1
+    s3 = cmdArgv[4] #nodes1
+    s4 = cmdArgv[5] #edges1
 
     for l in fr.readlines():
         l = l.strip('\n')

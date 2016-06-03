@@ -11,8 +11,9 @@
 
 using namespace std;
 map<string, string> filter;
-map<string, set<string> > userLog;
-map<string, set<string> > macUser;
+//map<string, set<string> > userLog;
+//map<string, set<string> > macUser;
+map<string, set<string> > userMac;
 map<string, set<int> > userTime;
 
 typedef pair<string, set<string> > PAIR;
@@ -25,8 +26,8 @@ bool cmp_by_value(const PAIR& lhs, const PAIR& rhs){
 //目标函数
 void fact(string whichDay,string s2, string s3,string s4){
       userTime.clear();
-      macUser.clear();
-      userLog.clear();
+      userMac.clear();
+      //userLog.clear();
       //  printf("this is fact function...");
       ifstream ifs2(whichDay.c_str()); // 0316/safe_wifi_connect_sample_export
 
@@ -85,26 +86,27 @@ void fact(string whichDay,string s2, string s3,string s4){
                   break;
               }
   		    }
-          if(filter.find(bssid)!=filter.end() && macUser[bssid].find(guid) == macUser[bssid].end()&&
+          if(filter.find(bssid)!=filter.end() && userMac[guid].find(bssid) == userMac[guid].end()&&
               userTime[guid].find(t/900) == userTime[guid].end()){
               //userLog[guid].insert(gotime+','+bssid+','+connect_time+','+filter[bssid]);
-              userLog[guid].insert(filter[bssid]);
+              //userLog[guid].insert(filter[bssid]);
               //userMac[guid].insert(bssid);
               userTime[guid].insert(t/900);
-              macUser[bssid].insert(guid);
+              //macUser[bssid].insert(guid);
+              userMac[guid].insert(bssid);
           }
   	  }
 
-      float macNum = 0.0;
-      for(map<string,set<string> >::const_iterator it=userLog.begin(); it!=userLog.end(); ++it){
-        macNum += it->second.size();
-      }
-      macNum = macNum/userLog.size();
+      //float macNum = 0.0;
+      //for(map<string,set<string> >::const_iterator it=userLog.begin(); it!=userLog.end(); ++it){
+      //  macNum += it->second.size();
+      //}
+      //macNum = macNum/userLog.size();
     //  ofs<<','<<macNum;   //一天内每个用户访问的mac数量的平均值
      // ofs<<','<<userLog.size(); // 一天内的用户数
 
 
-      vector<PAIR > cPair(macUser.begin(),macUser.end());
+      vector<PAIR > cPair(userMac.begin(),userMac.end());
       sort(cPair.begin(), cPair.end(), cmp_by_value);
 
       for(int i = 0; i<cPair.size();++i){
